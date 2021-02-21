@@ -39,8 +39,8 @@ def task_2():
     """
     # Read the Lena rgb image with type uint8
     rgb_img = io.imread('./images/Lena.png')
-    # b(blue) maps to 0, g(green) maps to 1, r(red) maps to 2
-    rgb_list = ['b', 'g', 'r']
+    # r(red) maps to 0, g(green) maps to 1, b(blue) maps to 2
+    rgb_list = ['r', 'g', 'b']
     rgb_range = [0, 256]
     for idx in range(len(rgb_list)):
         color_hist = cv2.calcHist([rgb_img], [idx], None, [256], rgb_range)
