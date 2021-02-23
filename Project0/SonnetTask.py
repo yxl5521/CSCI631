@@ -24,16 +24,15 @@ def plot_histogram(image):
 def modify_image(img, threshold):
     img[img > threshold] = 255
     img[img <= threshold] = 0
-    window = 'sonnet'
-    cv2.imshow(window, img)
-    cv2.waitKey(0)
-    cv2.destroyWindow(window)
+    plt.imshow(img)
+    plt.gray()
+    plt.show()
 
 
 def main():
     img = io.imread('./images/sonnet.png')
-    plot_histogram(img)
-    modify_image(img, 150)
+    # plot_histogram(img)
+    modify_image(img, 106)
 
 
 if __name__ == '__main__':
