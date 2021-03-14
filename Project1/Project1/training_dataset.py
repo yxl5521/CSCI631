@@ -10,10 +10,12 @@ class training_dataset(Dataset):
         read the training data and ground truth.
         implement your code here
         '''
-        self.featurestrain =
-        self.groundTruthtrain =
+        training = pd.read_csv("./Dataset/trainingData.csv", header=None)
+        ground = pd.read_csv("./Dataset/ground-truth.csv", header=None)
+        self.featurestrain = torch.tensor(training.to_numpy())
+        self.groundTruthtrain = torch.tensor(ground.to_numpy())
 
-        self.len =
+        self.len = len(training)
 
     def __getitem__(self, item):
         return self.featurestrain[item], self.groundTruthtrain[item]
