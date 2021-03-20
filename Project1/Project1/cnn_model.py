@@ -1,5 +1,7 @@
 import torch.nn as nn
 import torch.nn.functional as f
+
+
 class cnn_model(nn.Module):
     '''
     The CNN model contains three convolutional layers, one fully connected layer and one output layer with 4 nodes.
@@ -7,8 +9,8 @@ A kernel of size 5 with stride 1 is applied in each convolution layer. The first
 We need to set up a dropout rate (0.5) on the fully connected layer.
 All inner layers are activated by ReLU function.
     '''
-    def __init__(self):
 
+    def __init__(self):
         super(cnn_model, self).__init__()
 
         self.conv1 = nn.Conv2d(
@@ -35,9 +37,8 @@ All inner layers are activated by ReLU function.
             padding=0
         )
 
-
         self.fc1 = nn.Linear(
-            in_features=18*18*128,
+            in_features=18 * 18 * 128,
             out_features=2046
         )
 
@@ -47,9 +48,18 @@ All inner layers are activated by ReLU function.
         )
 
     def forward(self, val):
-
-
         # implement your code here:
-
+        val = f.max_pool2d(
+            f.relu(self.conv1(val)),
+            kernel_size=2,
+            stride=2)
+        val = f.max_pool2d(
+            f.relu(self.conv2(val)),
+            kernel_size=2,
+            stride=2)
+        val = f.relu(self.conv3(val))
+        val = val.view(-1, 18 * 18 * 128)
+        val = f.dropout(f.relu(self.fc1(val)), p=0.5)
+        val = self.fc2(val)
 
         return val
