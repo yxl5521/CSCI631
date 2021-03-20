@@ -11,7 +11,7 @@ class training_dataset(Dataset):
         implement your code here
         '''
         training = pd.read_csv("./Dataset/trainingData.csv", header=None)
-        ground = pd.read_csv("./Dataset/ground-truth.csv", header=None)
+        ground = pd.read_csv("./Dataset/newground-truth.csv", header=None)
         self.featurestrain = torch.tensor(training.to_numpy())
         self.groundTruthtrain = torch.tensor(ground.to_numpy())
 
