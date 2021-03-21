@@ -74,7 +74,7 @@ def train_model(net, dataloader, batchSize, lr_rate, momentum, Epoch_num):
                                                                                             loss=losses / len(
                                                                                                 dataloader.sampler),
                                                                                             avg_score=avgScores / len(
-                                                                                                dataloader)))
+                                                                                                dataloader.sampler)))
 
     print('Finish Training')
 
