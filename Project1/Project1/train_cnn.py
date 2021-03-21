@@ -77,26 +77,26 @@ def train_model(net, dataloader, batchSize, lr_rate, momentum, Epoch_num):
 
         print('Finish Training')
 
-        if __name__ == '__main__':
-            # hyper parameters
-            # implement your code here
-            learning_rate = 0.000007
-            momentum = 0.9
-            batch = 4
-            no_of_workers = torch.get_num_threads()
-            shuffle = True
-            epoch = 50
+if __name__ == '__main__':
+    # hyper parameters
+    # implement your code here
+    learning_rate = 0.000007
+    momentum = 0.9
+    batch = 4
+    no_of_workers = torch.get_num_threads()
+    shuffle = True
+    epoch = 50
 
-            # load dataset
-            # implement your code here
-            data = training_dataset()
+    # load dataset
+    # implement your code here
+    data = training_dataset()
 
-            # setup dataloader
-            # implement your code here
-            dataLoader = DataLoader(dataset=data, batch_size=batch, shuffle=shuffle, num_workers=no_of_workers)
+    # setup dataloader
+    # implement your code here
+    dataLoader = DataLoader(dataset=data, batch_size=batch, shuffle=shuffle, num_workers=no_of_workers)
 
-            model = cnn_model()
-            model.train()
-            train_model(model, dataLoader, batch, learning_rate, momentum, epoch)
-            # save model
-            torch.save(model.state_dict(), 'model.pth')
+    model = cnn_model()
+    model.train()
+    train_model(model, dataLoader, batch, learning_rate, momentum, epoch)
+    # save model
+    torch.save(model.state_dict(), 'model.pth')
