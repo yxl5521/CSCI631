@@ -65,7 +65,6 @@ def train_model(net, dataloader, batchSize, lr_rate, momentum, Epoch_num):
             gbox = labels.cpu().detach().numpy()
             avgScore, scores = overlapScore(pbox, gbox)
             avgScores += avgScore
-            print(scores)
 
         '''
         print out epoch, loss and average score in following format
