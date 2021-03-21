@@ -62,8 +62,8 @@ def train_model(net, dataloader, batchSize, lr_rate, momentum, Epoch_num):
             optimization.step()
 
             # calculate the score using overlapScore function
-            pbox = outputs.detach().numpy()
-            gbox = labels.detach().numpy()
+            pbox = outputs.cpu().detach().numpy()
+            gbox = labels.cpu().detach().numpy()
             avgScore, scores = overlapScore(pbox, gbox)
             avgScores.append(avgScore)
 
