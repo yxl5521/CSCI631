@@ -10,6 +10,7 @@ from cnn_model import cnn_model
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 
+
 # load test data
 # implement your code here
 def test_model():
@@ -50,16 +51,12 @@ if __name__ == '__main__':
     ax.imshow(inputs[0][0], origin='lower')
     # Create a Rectangle patch
     output_1 = outputs[0]
-    x = output_1[0]
-    y = output_1[1] + output_1[3]
-    rect_pred = patches.Rectangle((x, y), output_1[2], output_1[3], linewidth=1, edgecolor='r', facecolor='none')
+    rect_pred = patches.Rectangle((output_1[0], output_1[1]), output_1[2], output_1[3], linewidth=1, edgecolor='r',
+                                  facecolor='none')
 
     label_1 = labels[0]
-    print(label_1)
-    x = label_1[0]
-    y = label_1[1]
-    print(x, y)
-    rect_truth = patches.Rectangle((x, y), label_1[2], label_1[3], linewidth=1, edgecolor='r', facecolor='none')
+    rect_truth = patches.Rectangle((label_1[0], label_1[1]), label_1[2], label_1[3], linewidth=1, edgecolor='r',
+                                   facecolor='none')
     # Add the patch to the Axes
     ax.add_patch(rect_truth)
     # ax.add_patch(rect_pred)
