@@ -83,9 +83,11 @@ if __name__ == '__main__':
     learning_rate = 0.000005
     momentum = 0.9
     batch = 4
-    no_of_workers = 4
+    no_of_workers = torch.get_num_threads()
     shuffle = True
     epoch = 50
+
+    print(no_of_workers)
 
     # load dataset
     # implement your code here
