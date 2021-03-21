@@ -64,7 +64,7 @@ def train_model(net, dataloader, batchSize, lr_rate, momentum, Epoch_num):
             pbox = outputs.cpu().detach().numpy()
             gbox = labels.cpu().detach().numpy()
             avgScore, scores = overlapScore(pbox, gbox)
-            avgScores+=avgScore
+            avgScores += avgScore
 
         '''
         print out epoch, loss and average score in following format
@@ -72,10 +72,10 @@ def train_model(net, dataloader, batchSize, lr_rate, momentum, Epoch_num):
         '''
         print('epoch     {epoch}, loss: {loss:.6f}, Average Score = {avg_score:.6f}'.format(epoch=epoch + 1,
                                                                                             loss=np.mean(losses),
-                                                                                            avg_score=avgScores / len(
-                                                                                                dataloader)))
+                                                                                            avg_score=avgScores / len(dataloader)))
 
-        print('Finish Training')
+    print('Finish Training')
+
 
 if __name__ == '__main__':
     # hyper parameters
