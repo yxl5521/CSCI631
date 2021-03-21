@@ -40,14 +40,10 @@ if __name__ == '__main__':
     scores, inputs, labels, outputs = test_model()
     # save your output in a csv file in Result directory and draw an example with bounding box
     # implement your code here
-    pd.DataFrame(np.array(scores)).to_csv("./Results/result.csv")
-    print(inputs[0])
-    print(scores[0])
-    print(outputs[0])
-    # cv2.rectangle(img, (xmin, ymin), (xmax, ymax), (255, 0, 0), 5)
+    pd.DataFrame(np.array(scores)).to_csv("./Results/result.csv", header=False)
     plt.figure(figsize=(15, 10))
     fig, ax = plt.subplots()
-    # Display the image
+    # Display the image, origin at bottom left
     ax.imshow(inputs[0][0], origin='lower')
     # Create a Rectangle patch
     output_1 = outputs[0]
@@ -60,7 +56,7 @@ if __name__ == '__main__':
     # Add the patch to the Axes
     ax.add_patch(rect_truth)
     # ax.add_patch(rect_pred)
+    ax.gray()
     plt.title('Image with Bounding Box')
-    # plt.axis("off")
-    plt.gray()
+    plt.axis("off")
     plt.show()
