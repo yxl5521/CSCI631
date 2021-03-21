@@ -11,7 +11,7 @@ def find_top_left(rect):
     x, y is bottom left
     return top left coordinate
     """
-    x = rect[0] + rect[3]
+    x = rect[0]
     y = rect[1] + rect[3]
     return x, y
 
@@ -23,7 +23,7 @@ def find_bottom_right(rect):
     return bottom right coordinate
     """
     x = rect[0] + rect[2]
-    y = rect[1] + rect[2]
+    y = rect[1]
     return x, y
 
 
