@@ -65,6 +65,7 @@ def train_model(net, dataloader, batchSize, lr_rate, momentum, Epoch_num):
             gbox = labels.cpu().detach().numpy()
             avgScore, scores = overlapScore(pbox, gbox)
             avgScores += avgScore
+            print(scores)
 
         '''
         print out epoch, loss and average score in following format
@@ -87,7 +88,7 @@ if __name__ == '__main__':
     batch = 4
     no_of_workers = torch.get_num_threads()
     shuffle = True
-    epoch = 200
+    epoch = 100
 
     # load dataset
     # implement your code here
