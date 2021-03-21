@@ -31,4 +31,6 @@ avgScore, scores = overlapScore(ground_test, outputs)
 
 # save your output in a csv file in Result directory and draw an example with bounding box
 # implement your code here
+pd.DataFrame(np.array(scores)).to_csv("./Results/result.csv")
+
 

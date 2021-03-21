@@ -35,7 +35,6 @@ def train_model(net, dataloader, batchSize, lr_rate, momentum, Epoch_num):
     optimization = torch.optim.SGD(net.parameters(), lr=lr_rate, momentum=momentum)
     scheduler = optim.lr_scheduler.StepLR(optimization, step_size=30, gamma=0.1)
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-    print(device)
     net.to(device)
     '''
     loop for training
@@ -45,7 +44,7 @@ def train_model(net, dataloader, batchSize, lr_rate, momentum, Epoch_num):
 
         scheduler.step()
         losses = 0
-        avgScores = []
+        avgScores = 0
         for i, data in enumerate(dataloader):
             # clear the gradients for all optimized variables
             optimization.zero_grad()
@@ -65,14 +64,16 @@ def train_model(net, dataloader, batchSize, lr_rate, momentum, Epoch_num):
             pbox = outputs.cpu().detach().numpy()
             gbox = labels.cpu().detach().numpy()
             avgScore, scores = overlapScore(pbox, gbox)
-            avgScores.append(avgScore)
+            avgScores += avgScore
 
         '''
         print out epoch, loss and average score in following format
         epoch     1, loss: 426.835693, Average Score = 0.046756
         '''
-        print('epoch     {epoch}, loss: {loss}, Average Score = {avg_score}'.format(epoch=epoch, loss=losses,
-                                                                                    avg_score=np.mean(avgScores)))
+        print('epoch     {epoch}, loss: {loss}, Average Score = {avg_score}'.format(epoch=epoch, loss=losses/ len(
+                                                                                        dataloader),
+                                                                                    avg_score=avgScores / len(
+                                                                                        dataloader)))
 
     print('Finish Training')
 
@@ -80,14 +81,12 @@ def train_model(net, dataloader, batchSize, lr_rate, momentum, Epoch_num):
 if __name__ == '__main__':
     # hyper parameters
     # implement your code here
-    learning_rate = 0.000005
+    learning_rate = 0.00001
     momentum = 0.9
     batch = 4
     no_of_workers = torch.get_num_threads()
     shuffle = True
-    epoch = 100
-
-    print(no_of_workers)
+    epoch = 50
 
     # load dataset
     # implement your code here
