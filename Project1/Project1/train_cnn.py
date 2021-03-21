@@ -82,7 +82,7 @@ def train_model(net, dataloader, batchSize, lr_rate, momentum, Epoch_num):
 if __name__ == '__main__':
     # hyper parameters
     # implement your code here
-    learning_rate = 0.000006
+    learning_rate = 0.000005
     momentum = 0.9
     batch = 4
     no_of_workers = torch.get_num_threads()
