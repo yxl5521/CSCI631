@@ -12,10 +12,10 @@ class training_dataset(Dataset):
         '''
         training = pd.read_csv("./Dataset/trainingData.csv", header=None)
         ground = pd.read_csv("./Dataset/newground-truth.csv", header=None)
-        self.featurestrain = torch.tensor(training.to_numpy())
-        self.groundTruthtrain = torch.tensor(ground.to_numpy())
+        self.featurestrain = torch.tensor(training.to_numpy(), dtype=torch.float)
+        self.groundTruthtrain = torch.tensor(ground.to_numpy(), dtype=torch.float)
 
-        self.len = len(training)
+        self.len = training.shape[0]
 
     def __getitem__(self, item):
         return self.featurestrain[item], self.groundTruthtrain[item]

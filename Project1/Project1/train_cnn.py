@@ -6,12 +6,14 @@ import numpy as np
 import pandas as pd
 from functions import overlapScore
 
-
 from cnn_model import *
 from training_dataset import *
+
 '''
 In this part we will train the model.
 '''
+
+
 def train_model(net, dataloader, batchSize, lr_rate, momentum, Epoch_num):
     '''
     training process of this model
@@ -29,10 +31,9 @@ def train_model(net, dataloader, batchSize, lr_rate, momentum, Epoch_num):
     scheduler(hint: optim.lr_scheduler.StepLR(), step_size=30, gamma=0.1)
     '''
     # implement your code here:
-    criterion =
-    optimization =
+    criterion = nn.MSELoss()
+    optimization = torch.optim.SGD(net.parameters(), lr=lr_rate, momentum=momentum)
     scheduler = optim.lr_scheduler.StepLR(optimization, step_size=30, gamma=0.1)
-
 
     '''
     loop for training
@@ -41,31 +42,35 @@ def train_model(net, dataloader, batchSize, lr_rate, momentum, Epoch_num):
     for epoch in range(Epoch_num):
 
         scheduler.step()
-
+        losses = 0
+        avgScores = []
         for i, data in enumerate(dataloader):
             # clear the gradients for all optimized variables
-
-
-
+            optimization.zero_grad()
             # forward pass: compute predicted outputs by passing inputs to the model
             inputs, labels = data
             inputs, labels = inputs.view(batchSize, 1, 100, 100), labels.view(batchSize, 4)
             outputs = net(inputs)
             # calculate the loss
-
+            loss = criterion(outputs, labels)
+            losses += loss.item()
             # backward pass: compute gradient of the loss with respect to model parameters
-
+            loss.backward()
             # perform a single optimization step (parameter update)
+            optimization.step()
 
             # calculate the score using overlapScore function
-            pbox =
-            gbox =
+            pbox = outputs.detach().numpy()
+            gbox = labels.detach().numpy()
+            avgScore, scores = overlapScore(pbox, gbox)
+            avgScores.append(avgScore)
 
         '''
         print out epoch, loss and average score in following format
         epoch     1, loss: 426.835693, Average Score = 0.046756
         '''
-
+        print('epoch     {epoch}, loss: {loss}, Average Score = {avg_score}'.format(epoch=epoch, loss=losses,
+                                                                                    avg_score=np.mean(avgScores)))
 
     print('Finish Training')
 
@@ -73,26 +78,24 @@ def train_model(net, dataloader, batchSize, lr_rate, momentum, Epoch_num):
 if __name__ == '__main__':
     # hyper parameters
     # implement your code here
-    learning_rate =
-    momentum =
-    batch =
-    no_of_workers =
+    learning_rate = 0.000005
+    momentum = 0.9
+    batch = 4
+    no_of_workers = 4
     shuffle = True
-    epoch=
+    epoch = 50
 
     # load dataset
     # implement your code here
-
+    data = training_dataset()
 
     # setup dataloader
     # implement your code here
-
+    dataLoader = DataLoader(dataset=data, batch_size=batch, shuffle=shuffle, num_workers=no_of_workers)
 
     model = cnn_model()
     model.train()
 
-    train_model(model, dataLoader, batch,learning_rate, momentum, epoch)
+    train_model(model, dataLoader, batch, learning_rate, momentum, epoch)
     # save model
     torch.save(model.state_dict(), 'model.pth')
-
-

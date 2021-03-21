@@ -7,11 +7,12 @@ import torch
 
 from cnn_model import cnn_model
 
-
 # load test data
 # implement your code here
-
-
+testing = torch.tensor(
+    pd.read_csv("./Dataset/testData.csv", header=None).to_numpy(), dtype=torch.float)
+ground_test = torch.tensor(
+    pd.read_csv("./Dataset/newground-truth-test.csv", header=None).to_numpy(), dtype=torch.float)
 
 # load model.pth and test model
 
@@ -21,13 +22,13 @@ model.load_state_dict(torch.load('model.pth'))
 
 # reshape your text data and feed into your model
 # implement your code here
-
+inputs, labels = testing.view(4, 1, 100, 100), ground_test.view(4, 4)
+outputs = model(inputs)
 
 # use overlapscore function to calculate the average score
 # implement your code here
+avgScore, scores = overlapScore(ground_test, outputs)
 
 # save your output in a csv file in Result directory and draw an example with bounding box
 # implement your code here
-
-
 
