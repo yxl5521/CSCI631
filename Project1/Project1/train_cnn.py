@@ -34,7 +34,9 @@ def train_model(net, dataloader, batchSize, lr_rate, momentum, Epoch_num):
     criterion = nn.MSELoss()
     optimization = torch.optim.SGD(net.parameters(), lr=lr_rate, momentum=momentum)
     scheduler = optim.lr_scheduler.StepLR(optimization, step_size=30, gamma=0.1)
-
+    device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
+    print(device)
+    net.to(device)
     '''
     loop for training
     '''
@@ -49,7 +51,7 @@ def train_model(net, dataloader, batchSize, lr_rate, momentum, Epoch_num):
             optimization.zero_grad()
             # forward pass: compute predicted outputs by passing inputs to the model
             inputs, labels = data
-            inputs, labels = inputs.view(batchSize, 1, 100, 100), labels.view(batchSize, 4)
+            inputs, labels = (inputs.view(batchSize, 1, 100, 100)).to(device), (labels.view(batchSize, 4)).to(device)
             outputs = net(inputs)
             # calculate the loss
             loss = criterion(outputs, labels)
@@ -95,7 +97,6 @@ if __name__ == '__main__':
 
     model = cnn_model()
     model.train()
-
     train_model(model, dataLoader, batch, learning_rate, momentum, epoch)
     # save model
     torch.save(model.state_dict(), 'model.pth')
