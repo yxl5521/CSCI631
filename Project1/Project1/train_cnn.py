@@ -72,7 +72,8 @@ def train_model(net, dataloader, batchSize, lr_rate, momentum, Epoch_num):
         '''
         print('epoch     {epoch}, loss: {loss:.6f}, Average Score = {avg_score:.6f}'.format(epoch=epoch + 1,
                                                                                             loss=np.mean(losses),
-                                                                                            avg_score=avgScores / len(dataloader)))
+                                                                                            avg_score=avgScores / len(
+                                                                                                dataloader.sampler)))
 
     print('Finish Training')
 
