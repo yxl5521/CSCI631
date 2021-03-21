@@ -70,8 +70,8 @@ def train_model(net, dataloader, batchSize, lr_rate, momentum, Epoch_num):
         print out epoch, loss and average score in following format
         epoch     1, loss: 426.835693, Average Score = 0.046756
         '''
-        print('epoch     {epoch}, loss: {loss}, Average Score = {avg_score}'.format(epoch=epoch, loss=losses/ len(
-                                                                                        dataloader),
+        print('epoch     {epoch}, loss: {loss}, Average Score = {avg_score}'.format(epoch=epoch,
+                                                                                    loss=losses / len(dataloader),
                                                                                     avg_score=avgScores / len(
                                                                                         dataloader)))
 
@@ -82,11 +82,11 @@ if __name__ == '__main__':
     # hyper parameters
     # implement your code here
     learning_rate = 0.000008
-    momentum = 0.9
+    momentum = 0.5
     batch = 4
     no_of_workers = torch.get_num_threads()
     shuffle = True
-    epoch = 50
+    epoch = 100
 
     # load dataset
     # implement your code here
