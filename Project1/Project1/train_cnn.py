@@ -43,8 +43,8 @@ def train_model(net, dataloader, batchSize, lr_rate, momentum, Epoch_num):
     for epoch in range(Epoch_num):
 
         scheduler.step()
-        losses = 0
-        avgScores = 0
+        losses = []
+        avgScores = []
         for i, data in enumerate(dataloader):
             # clear the gradients for all optimized variables
             optimization.zero_grad()
@@ -54,7 +54,7 @@ def train_model(net, dataloader, batchSize, lr_rate, momentum, Epoch_num):
             outputs = net(inputs)
             # calculate the loss
             loss = criterion(outputs, labels)
-            losses += outputs.shape[0] * loss.item()
+            losses.append(outputs.shape[0] * loss.item())
             # backward pass: compute gradient of the loss with respect to model parameters
             loss.backward()
             # perform a single optimization step (parameter update)
@@ -64,17 +64,16 @@ def train_model(net, dataloader, batchSize, lr_rate, momentum, Epoch_num):
             pbox = outputs.cpu().detach().numpy()
             gbox = labels.cpu().detach().numpy()
             avgScore, scores = overlapScore(pbox, gbox)
-            avgScores += avgScore
+            avgScores.append(avgScore)
 
         '''
         print out epoch, loss and average score in following format
         epoch     1, loss: 426.835693, Average Score = 0.046756
         '''
         print('epoch     {epoch}, loss: {loss:.6f}, Average Score = {avg_score:.6f}'.format(epoch=epoch + 1,
-                                                                                            loss=losses / len(
-                                                                                                dataloader.sampler),
-                                                                                            avg_score=avgScores / len(
-                                                                                                dataloader.sampler)))
+                                                                                            loss=np.mean(losses),
+                                                                                            avg_score=np.mean(
+                                                                                                avgScores)))
 
     print('Finish Training')
 
