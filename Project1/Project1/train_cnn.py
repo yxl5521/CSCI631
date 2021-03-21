@@ -54,7 +54,7 @@ def train_model(net, dataloader, batchSize, lr_rate, momentum, Epoch_num):
             outputs = net(inputs)
             # calculate the loss
             loss = criterion(outputs, labels)
-            losses += data.size(0) * loss.item()
+            losses += outputs.shape[0] * loss.item()
             # backward pass: compute gradient of the loss with respect to model parameters
             loss.backward()
             # perform a single optimization step (parameter update)
