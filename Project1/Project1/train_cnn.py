@@ -54,7 +54,7 @@ def train_model(net, dataloader, batchSize, lr_rate, momentum, Epoch_num):
             outputs = net(inputs)
             # calculate the loss
             loss = criterion(outputs, labels)
-            losses += loss.item()
+            losses += data.size(0) * loss.item()
             # backward pass: compute gradient of the loss with respect to model parameters
             loss.backward()
             # perform a single optimization step (parameter update)
@@ -70,10 +70,11 @@ def train_model(net, dataloader, batchSize, lr_rate, momentum, Epoch_num):
         print out epoch, loss and average score in following format
         epoch     1, loss: 426.835693, Average Score = 0.046756
         '''
-        print('epoch     {epoch}, loss: {loss}, Average Score = {avg_score}'.format(epoch=epoch,
-                                                                                    loss=losses / len(dataloader),
-                                                                                    avg_score=avgScores / len(
-                                                                                        dataloader)))
+        print('epoch     {epoch}, loss: {loss:.6f}, Average Score = {avg_score:.6f}'.format(epoch=epoch + 1,
+                                                                                            loss=losses / len(
+                                                                                                dataloader.sampler),
+                                                                                            avg_score=avgScores / len(
+                                                                                                dataloader)))
 
     print('Finish Training')
 
@@ -81,12 +82,12 @@ def train_model(net, dataloader, batchSize, lr_rate, momentum, Epoch_num):
 if __name__ == '__main__':
     # hyper parameters
     # implement your code here
-    learning_rate = 0.000008
-    momentum = 0.5
+    learning_rate = 0.000007
+    momentum = 0.9
     batch = 4
     no_of_workers = torch.get_num_threads()
     shuffle = True
-    epoch = 100
+    epoch = 200
 
     # load dataset
     # implement your code here

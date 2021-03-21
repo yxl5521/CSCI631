@@ -49,14 +49,12 @@ All inner layers are activated by ReLU function.
 
     def forward(self, val):
         # implement your code here:
-        val = f.max_pool2d(
-            f.relu(self.conv1(val)),
-            kernel_size=2,
-            stride=2)
-        val = f.max_pool2d(
-            f.relu(self.conv2(val)),
-            kernel_size=2,
-            stride=2)
+        val = f.relu(self.conv1(val))
+        val = f.max_pool2d(val, kernel_size=2,
+                           stride=2)
+        val = f.relu(self.conv2(val))
+        val = f.max_pool2d(val, kernel_size=2,
+                           stride=2)
         val = f.relu(self.conv3(val))
         val = val.view(-1, 18 * 18 * 128)
         val = f.dropout(f.relu(self.fc1(val)), p=0.5)
