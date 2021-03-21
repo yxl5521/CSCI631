@@ -45,11 +45,11 @@ def overlapScore(rects1, rects2):
             find_bottom_right(rect1)[1],
             find_bottom_right(rect2)[1]
         )
-        right = np.minimum(
+        right = np.maximum(
             find_bottom_right(rect1)[0],
             find_bottom_right(rect2)[0]
         )
-        left = np.maximum(
+        left = np.minimum(
             find_top_left(rect1)[0],
             find_top_left(rect2)[0]
         )
