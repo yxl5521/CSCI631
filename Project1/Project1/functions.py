@@ -38,20 +38,20 @@ def overlapScore(rects1, rects2):
         # implement your code here:
 
         top = np.maximum(
-            find_top_left(rect1)[0],
-            find_top_left(rect2)[0]
+            find_top_left(rect1)[1],
+            find_top_left(rect2)[1]
         )
         bottom = np.minimum(
-            find_bottom_right(rect1)[0],
-            find_bottom_right(rect2)[0]
-        )
-        right = np.minimum(
             find_bottom_right(rect1)[1],
             find_bottom_right(rect2)[1]
         )
+        right = np.minimum(
+            find_bottom_right(rect1)[0],
+            find_bottom_right(rect2)[0]
+        )
         left = np.maximum(
-            find_top_left(rect1)[1],
-            find_top_left(rect2)[1]
+            find_top_left(rect1)[0],
+            find_top_left(rect2)[0]
         )
 
         # area of intersection
