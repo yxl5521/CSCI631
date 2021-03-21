@@ -44,7 +44,7 @@ if __name__ == '__main__':
     plt.figure(figsize=(15, 10))
     fig, ax = plt.subplots()
     # Display the image, origin at bottom left
-    ax.imshow(inputs[0][0], origin='lower')
+    ax.imshow(inputs[0][0], origin='lower', cmap='gray')
     # Create a Rectangle patch
     output_1 = outputs[0]
     rect_pred = patches.Rectangle((output_1[0], output_1[1]), output_1[2], output_1[3], linewidth=1, edgecolor='r',
@@ -52,11 +52,10 @@ if __name__ == '__main__':
 
     label_1 = labels[0]
     rect_truth = patches.Rectangle((label_1[0], label_1[1]), label_1[2], label_1[3], linewidth=1, edgecolor='r',
-                                   facecolor='none')
+                                   facecolor='b')
     # Add the patch to the Axes
     ax.add_patch(rect_truth)
     # ax.add_patch(rect_pred)
-    ax.gray()
     plt.title('Image with Bounding Box')
     plt.axis("off")
     plt.show()

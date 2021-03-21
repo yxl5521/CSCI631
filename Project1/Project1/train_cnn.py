@@ -43,7 +43,7 @@ def train_model(net, dataloader, batchSize, lr_rate, momentum, Epoch_num):
     for epoch in range(Epoch_num):
 
         scheduler.step()
-        losses = []
+        losses = 0
         avgScores = 0
         for i, data in enumerate(dataloader):
             # clear the gradients for all optimized variables
@@ -54,7 +54,7 @@ def train_model(net, dataloader, batchSize, lr_rate, momentum, Epoch_num):
             outputs = net(inputs)
             # calculate the loss
             loss = criterion(outputs, labels)
-            losses.append(outputs.shape[0] * loss.item())
+            losses += outputs.shape[0] * loss.item()
             # backward pass: compute gradient of the loss with respect to model parameters
             loss.backward()
             # perform a single optimization step (parameter update)
@@ -71,7 +71,8 @@ def train_model(net, dataloader, batchSize, lr_rate, momentum, Epoch_num):
         epoch     1, loss: 426.835693, Average Score = 0.046756
         '''
         print('epoch     {epoch}, loss: {loss:.6f}, Average Score = {avg_score:.6f}'.format(epoch=epoch + 1,
-                                                                                            loss=np.mean(losses),
+                                                                                            loss=losses/ len(
+                                                                                                dataloader.sampler),
                                                                                             avg_score=avgScores / len(
                                                                                                 dataloader.sampler)))
 
