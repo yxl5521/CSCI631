@@ -15,7 +15,7 @@ class training_dataset(Dataset):
         self.featurestrain = torch.tensor(training.to_numpy(), dtype=torch.float)
         self.groundTruthtrain = torch.tensor(ground.to_numpy(), dtype=torch.float)
 
-        self.len = training.shape[0]
+        self.len = len(training)
 
     def __getitem__(self, item):
         return self.featurestrain[item], self.groundTruthtrain[item]
