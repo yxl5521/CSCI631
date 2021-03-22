@@ -41,21 +41,24 @@ if __name__ == '__main__':
     # save your output in a csv file in Result directory and draw an example with bounding box
     # implement your code here
     pd.DataFrame(np.array(scores)).to_csv("./Results/result.csv", header=False)
-    plt.figure(figsize=(15, 10))
-    fig, ax = plt.subplots()
-    # Display the image, origin at bottom left
-    ax.imshow(inputs[0][0], origin='lower', cmap='gray')
-    # Create a Rectangle patch
-    output_1 = outputs[0]
-    rect_pred = patches.Rectangle((output_1[0], output_1[1]), output_1[2], output_1[3], linewidth=1, edgecolor='r',
-                                  facecolor='none')
+    for i in range(outputs.shape[0]):
+        plt.figure(figsize=(15, 10))
+        fig, ax = plt.subplots()
+        # Display the image, origin at bottom left
+        ax.imshow(inputs[i][0], origin='lower', cmap='gray')
+        # Create Bounding boxes
+        output_1 = outputs[i]
+        rect_pred = patches.Rectangle((output_1[0], output_1[1]), output_1[2], output_1[3], linewidth=2, edgecolor='g',
+                                      facecolor='none')
 
-    label_1 = labels[0]
-    rect_truth = patches.Rectangle((label_1[0], label_1[1]), label_1[2], label_1[3], linewidth=1, edgecolor='r',
-                                   facecolor='b')
-    # Add the patch to the Axes
-    ax.add_patch(rect_truth)
-    # ax.add_patch(rect_pred)
-    plt.title('Image with Bounding Box')
-    plt.axis("off")
-    plt.show()
+        label_1 = labels[i]
+        rect_truth = patches.Rectangle((label_1[0], label_1[1]), label_1[2], label_1[3], linewidth=2, edgecolor='r',
+                                       facecolor='b')
+        # Add the patch to the Axes
+        ax.add_patch(rect_truth)
+        ax.add_patch(rect_pred)
+        plt.title('Image with Bounding Boxes')
+        plt.axis("off")
+        plt.show()
+        fig.savefig('./Results/test results/{0}.jpg'.format(i))
+

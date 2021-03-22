@@ -87,7 +87,7 @@ if __name__ == '__main__':
     batch = 4
     no_of_workers = torch.get_num_threads()
     shuffle = True
-    epoch = 50
+    epoch = 30
 
     # load dataset
     # implement your code here
